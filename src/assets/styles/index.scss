@@ -1,0 +1,170 @@
+// 头部
+
+.cal_head {
+  // width: calc(100% + 20px);
+  width: 100%;
+  height: 50px;
+  background-color: #4A5064;
+  // margin: -10px 0 0 -10px;
+  line-height: 50px;
+  text-align: center;
+  position: relative;
+  .cal_sel {
+    width: 90px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 30px;
+    text-align: center;
+    background-color: #00C1DE;
+    margin-left: 20px;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    .el-select {
+      width: 90px;
+      height: 30px;
+      .el-input {
+        width: 90px;
+        height: 30px;
+        input {
+          width: 90px;
+          height: 30px;
+        }
+      }
+    }
+  }
+  .time_sel {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    // background-color: #00C1DE;
+    display: inline-block;
+    i {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      color: #fff;
+      &:hover {
+        background-color: #7ED2DF;
+        color: #000;
+      }
+    }
+    span {
+      width: 125px;
+      height: 30px;
+      line-height: 30px;
+      vertical-align: middle;
+      display: inline-block;
+      color: #fff;
+    }
+  }
+  .cre_meeting {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+    opacity: 0;
+    &:hover {
+      background-color: #7ED2DF;
+      span {
+        color: #000;
+      }
+    }
+    span {
+      color: #fff;
+    }
+  }
+}
+
+// 日历主区域
+.cal_body {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin: 0 auto;
+  .cal_time {
+    width: 100%;
+    margin: 10px 0;
+    .el-row {
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      .el-col {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        border-left: 1px solid #000;
+        &:nth-last-of-type(1) {
+          border-right: 1px solid #000;
+        }
+        &:nth-of-type(1) {
+          span {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.cal_lists {
+  width: 100%;
+  .el-row {
+    min-height: 120px;
+    // line-height: 130px;
+    text-align: center;
+    &:nth-last-of-type(1) {
+      border-bottom: 1px solid #000;
+    }
+    .el-col {
+      border-top: 1px solid #000;
+      border-left: 1px solid #000;
+      position: relative;
+      min-height: 120px;
+      ul {
+        // width: 100%;
+        // height: 100%;
+        li {
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          color: #000;
+          text-align: left;
+          padding-left: 5px;
+        }
+      }
+      &:nth-of-type(1) {
+        text-align: center;
+        div {
+          img {
+            // width: 100px;
+            // height: 80px;
+            display: inline-block;
+          }
+          p {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #000;
+            display: inline-block;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+          }
+        }
+      }
+      &:nth-last-of-type(1) {
+        border-right: 1px solid #000;
+      }
+    }
+  }
+}

@@ -1,0 +1,250 @@
+$baseFontSize: 100;
+@function px2rem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -ms-user-select: none;
+  -ms-content-zooming: none;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+}
+
+ol li,
+ul li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+html {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  font-family: 微软雅黑, "Microsoft Yahei", Arial, sans-serif !important;
+}
+
+body {
+  _overflow-x: hidden;
+  overflow-x: hidden;
+  font-size: 14px;
+  background-color: #3D314D;
+}
+
+em,
+i {
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*背景*/
+.backgroundCC {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.background100 {
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.backgroundCCON {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/*弹性盒模型*/
+.flex {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.flexSBN {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.flexSAN {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+}
+
+.flexSAC {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+}
+
+.flexSBC {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+}
+
+.flexCN {
+  display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+
+.flexCC {
+  display: flex;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-box-align: center;
+}
+
+.flexNC {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+}
+
+.flexV {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+/*怪异盒模型*/
+.box-sizingBB {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+/*滤镜*/
+@mixin filter-scale($val) {
+  filter: grayscale($val);
+  -webkit-filter: grayscale($val);
+  -ms-filter: grayscale($val);
+}
+
+@mixin transform-scale($val) {
+  transform: scale($val);
+  -webkit-transform: scale($val);
+  -moz-transform: scale($val);
+}
+
+/*延时*/
+.delay1001 {
+  transition: all 1s ease-out 0.1s;
+  -webkit-transition: all 1s ease-out 0.1s;
+  -moz-transition: all 1s ease-out 0.1s;
+}
+
+.delay1000 {
+  transition: all 1s ease-out 0s;
+  -webkit-transition: all 1s ease-out 0s;
+  -moz-transition: all 1s ease-out 0s;
+}
+
+.delay500 {
+  transition: all 0.5s ease-out 0s;
+  -webkit-transition: all 0.5s ease-out 0s;
+  -moz-transition: all 0.5s ease-out 0s;
+}
+
+/*运动*/
+.translateX0 {
+  opacity: 1;
+  transform: translateX(0px);
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+}
+
+.translateX200 {
+  opacity: 0;
+  transform: translateX(200px);
+  -webkit-transform: translateX(200px);
+  -moz-transform: translateX(200px);
+}
+
+.translateX0200 {
+  opacity: 0;
+  transform: translateX(-200px);
+  -webkit-transform: translateX(-200px);
+  -moz-transform: translateX(-200px);
+}
+
+.translateY0 {
+  opacity: 1;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+}
+
+.translateY200 {
+  opacity: 0;
+  transform: translateY(200px);
+  -webkit-transform: translateY(200px);
+  -moz-transform: translateY(200px);
+}
+
+.translateY0200 {
+  opacity: 0;
+  transform: translateY(-200px);
+  -webkit-transform: translateY(-200px);
+  -moz-transform: translateY(-200px);
+}
