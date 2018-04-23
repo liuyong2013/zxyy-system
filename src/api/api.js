@@ -32,6 +32,7 @@ axios.interceptors.response.use(res => {
 /*10.149.0.173:7081*/
 // axios.defaults.baseURL = 'http://10.202.203.57:7081';
 axios.defaults.baseURL = 'http://10.149.0.173:7081';
+// axios.defaults.baseURL = 'http://10.149.0.114:7081';
 axios.defaults.timeout = 1000 * 15;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
 axios.defaults.headers.get['Content-Type'] = 'application/json'
