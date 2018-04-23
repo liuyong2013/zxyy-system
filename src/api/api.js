@@ -128,11 +128,7 @@ export const saveStudent = params => {
 
 //根据当前学生ID获取用户信息
 export const getStudent = params => {
-  return axios.post(`${base}/zxyy/Student/getStudentId`, params,
-    {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}}).then(res => res.data);
-};
-export const saveStudent = params => {
-  return axios.post('/zxyy/Student/insert', qs.stringify(params)).then(res => res.data);
+  return axios.post('/zxyy/Student/getStudentId', params).then(res => res.data);
 };
 
 // 修改
