@@ -96,14 +96,14 @@
         });
       }
     },
-    updated() {
+    mounted() {
       var that = this;
       $(document).keydown(function (ev) {
         if (ev.keyCode == '13' || ev.keyCode == 'enter') {
           that.handleSubmit2()
         }
       })
-    }
+    },
   }
 </script>
 

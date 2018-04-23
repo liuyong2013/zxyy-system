@@ -3,8 +3,8 @@
     <section class="cal_head">
       <div class="cal_sel">
         <!--<span>周</span>-->
-        <el-select v-model="value" placeholder="" @change="getNowCourse">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :selected="item.selected"></el-option>
+        <el-select v-model="courseId" placeholder="请选择课程" @change="getCourseTable">
+          <el-option v-for="item in options" :key="item.courseId" :label="item.courseName" :value="item.courseId"></el-option>
         </el-select>
       </div>
       <div class="time_sel">
@@ -24,168 +24,14 @@
       </div>
 
       <div class="cal_lists">
-        <el-row>
+        <el-row v-for="(item,index) in this.courseList">
           <el-col :span="3">
-            <div><img src="../../assets/logo.png" alt="teacher">
-              <p>teacher's name</p></div>
+            <div><img :src="item.tea_picture" alt="teacher">
+              <p>{{item.tea_name}}</p></div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="3" v-for="(itemChild,indexChild) in item.sevenList">
             <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3">
-            <div><img src="../../assets/logo.png" alt="teacher">
-              <p>teacher's name</p></div>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3">
-            <div><img src="../../assets/logo.png" alt="teacher">
-              <p>teacher's name</p></div>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
-            </ul>
-          </el-col>
-          <el-col :span="3">
-            <ul>
-              <li>list1</li>
-              <li>list2</li>
-              <li>list3</li>
+              <li v-for="(itemGrandson,indexGrandson) in itemChild.courseList">{{itemGrandson.tea_ch_time}}:00&nbsp;&nbsp;{{itemGrandson.stu_name}}</li>
             </ul>
           </el-col>
         </el-row>
@@ -195,31 +41,19 @@
 </template>
 
 <script>
-  import {indexGetNowCourse, indexGetNowDate} from '../../api/api';
+  import {indexGetNowDate, indexGetCourseInfo, indexGetCourseTable} from '../../api/api';
 
   export default {
     data() {
       return {
-        options: [{
-          value: '选项1',
-          label: '课程1'
-        }, {
-          value: '选项2',
-          label: '课程5'
-        }, {
-          value: '选项3',
-          label: '课程2',
-          selected: true
-        }, {
-          value: '选项4',
-          label: '课程3'
-        }, {
-          value: '选项5',
-          label: '课程4'
-        }],
-        value: '课程5',
+        //课程信息
+        courseId: '',
+        courseList: [],
+        options: [],
+        // initVal: '',
+        //课程信息...
         //日历头部信息
-        isToBack: {
+        isToBackDate: {
           timeBaseDay: '',
           flag: '0',
           timeZone: ''
@@ -248,22 +82,33 @@
       }
     },
     methods: {
-      getNowCourse(value) {
-        // console.log(this);
-        let obj = {};
-        obj = this.options.find((item) => {
-          return item.value === value;
-        });
-        // console.log(obj);
-        indexGetNowCourse(obj).then((res) => {
-          let {message, status, datas} = res;
-          // console.log(datas)
+      getCourseInfo() {
+        indexGetCourseInfo().then((res) => {
+          this.options = res.datas;
+          // this.initVal = res.datas[0].courseName;
+          this.courseId = res.datas[0].courseId;
+        })
+      },
+      getCourseTable(value) {
+        // let courseName = {};
+        // courseName = this.options.find((item) => {
+        //   return item.courseName === value;
+        // });
+        // this.getCourseInfo(value)
+        this.courseId = value;
+        var toBackCouseInfo = {};
+        toBackCouseInfo.timeBaseDay = this.storeTimeBaseDay;
+        toBackCouseInfo.courId = this.courseId;
+        let courseInfo = Object.assign({}, toBackCouseInfo);
+        console.log(courseInfo)
+        indexGetCourseTable(courseInfo).then((res) => {
+          this.courseList = res.datas;
         })
       },
       getNowDate() {
-        let nowDate = Object.assign({}, this.isToBack);
+        let nowDate = Object.assign({}, this.isToBackDate);
         indexGetNowDate(nowDate).then((res) => {
-          let {message, status, datas} = res;
+          // let {message, status, datas} = res;
           this.dateList = res.datas.list
           this.storeTimeBaseDay = res.datas.timeBaseDay
           this.timeYear = res.datas.timeYear
@@ -273,17 +118,18 @@
           res.datas.list.forEach(function (val, key) {
             val.week = _this.weeks[key].value;
           });
+          this.getCourseTable(this.courseId);
         })
       },
       indexToFront() {
-        this.isToBack.timeBaseDay = this.storeTimeBaseDay
-        this.isToBack.flag = -1;
-        this.getNowDate()
+        this.isToBackDate.timeBaseDay = this.storeTimeBaseDay
+        this.isToBackDate.flag = -1;
+        this.getNowDate();
       },
       indexToNext() {
-        this.isToBack.timeBaseDay = this.storeTimeBaseDay
-        this.isToBack.flag = 1;
-        this.getNowDate()
+        this.isToBackDate.timeBaseDay = this.storeTimeBaseDay
+        this.isToBackDate.flag = 1;
+        this.getNowDate();
       },
       toDouble(num) {
         return num < 10 ? '0' + num : num;
@@ -291,10 +137,9 @@
     },
     mounted() {
       this.getNowDate();
+      this.getCourseInfo();
       var localZone = new Date().getTimezoneOffset() / 60;
-      this.isToBack.timeZone = localZone;
-    },
-    updated() {
+      this.isToBackDate.timeZone = localZone;
     },
   }
 </script>

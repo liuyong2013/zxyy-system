@@ -167,20 +167,17 @@ export const addUser = params => {
   return axios.get('/user/add', {params: params});
 };
 
-/*首页获取课程*/
-
-export const indexGetNowCourse = params => {
-  // return axios.post('', params).then(res => res.data);
-};
-
 /*首页获取日期*/
-// export const indexGetNowDate = params => {
-//   return axios.post('/zxyy/timetable', params).then(res => res.data);
-// };
-
-/*export const indexGetNowDate = params => {
-  return axios.get(`${base}/zxyy/timetable/getDateList?${qs.stringify(params)}`).then(res => res.data);
-};*/
 export const indexGetNowDate = params => {
   return axios.post('/zxyy/timetable/getDateList', qs.stringify(params)).then(res => res.data);
+};
+
+/*首页获取课程*/
+export const indexGetCourseInfo = params => {
+  return axios.get('/zxyy/course/findAllBydeptId', params).then(res => res.data);
+};
+
+/*首页获取学生列表*/
+export const indexGetCourseTable = params => {
+  return axios.post('/zxyy/timetable/getAllTimeTable', qs.stringify(params)).then(res => res.data);
 };

@@ -98,7 +98,10 @@
           //type: 'warning'
         }).then(() => {
           sessionStorage.removeItem('user');
-          _this.$router.push('/login');
+          setTimeout(() => {
+            window.location.reload();
+            _this.$router.push('/login');
+          }, 0)
         }).catch(() => {
         });
       },
@@ -134,7 +137,7 @@
     .header {
       height: 50px;
       line-height: 50px;
-      background: #005048;
+      background: #004870;
       position: relative;
       .userinfo {
         text-align: right;
@@ -160,13 +163,13 @@
         float: left;
         width: 59px;
         line-height: 26px;
-        background-color: #005048;
+        background-color: #004870;
       }
       .topbar-logos {
         float: left;
         width: 120px;
         line-height: 26px;
-        background-color: #005048;
+        background-color: #004870;
       }
       .topbar-logo img, .topbar-logos img {
         height: 40px;
@@ -222,7 +225,7 @@
       overflow: hidden;
       aside {
         min-width: 50px;
-        background: #006960;
+        background: #11347a;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -238,7 +241,7 @@
           height: -webkit-calc(100% - 80px);
           height: calc(100% - 80px);
           border-radius: 0px;
-          background-color: #006960;
+          background-color: #11347a;
           border-right: 0px;
         }
         .el-submenu .el-menu-item {
@@ -257,7 +260,7 @@
         }
 
         .el-menu-item:hover, .el-submenu .el-menu-item:hover, .el-submenu__title:hover {
-          background-color: #006921;
+          background-color: #004870;
         }
       }
       .menu-collapsed {
@@ -270,7 +273,7 @@
       }
 
       .menu-toggle {
-        background: #006960;
+        background: #11347a;
         text-align: center;
         color: white;
         height: 26px;

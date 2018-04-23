@@ -26,11 +26,11 @@ a {
 }
 
 .el-menu-item:hover, .el-submenu .el-menu-item:hover, .el-submenu__title:hover {
-  background-color: #006921;
+  background-color: #004870;
 }
 
 .el-submenu .el-menu-item {
-  background-color: #257f76;
+  background-color: #1d3b82;
   span {
     font-size: 13px;
     margin-left: 15px;
@@ -43,7 +43,7 @@ a {
 
 .el-submenu .el-menu-item.is-active, .el-menu-item.is-active,
 .el-submenu .el-menu-item.is-active:hover, .el-menu-item.is-active:hover {
-  background-color: #005c54;
+  background-color: #004870;
   color: #fff;
 }
 
