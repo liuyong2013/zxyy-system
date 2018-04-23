@@ -3,7 +3,7 @@ import Vue from 'vue'
 import App from './App'
 import locale from 'element-ui/lib/locale/lang/en'
 
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, {locale})
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/iconfont.css'
@@ -22,15 +22,15 @@ import routes from './routes'
 import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios';
 
-Vue.use(ElementUI)
-Vue.use(VueRouter)
-Vue.use(Vuex)
+Vue.use(ElementUI);
+Vue.use(VueRouter);
+Vue.use(Vuex);
 
 //NProgress.configure({ showSpinner: false });
 
 const router = new VueRouter({
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
   //NProgress.start();
@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
   }
   let user = JSON.parse(sessionStorage.getItem('user'));
   if (!user && to.path != '/login') {
-    next({ path: '/login' })
+    next({path: '/login'})
   } else {
     next()
   }
@@ -59,4 +59,4 @@ new Vue({
 }).$mount('#app')
 
 
-window.router=router;
+window.router = router;

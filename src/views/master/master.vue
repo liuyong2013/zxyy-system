@@ -56,11 +56,7 @@
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
         <el-form-item label="课程项目" prop="courseIdsArray">
           <el-checkbox-group v-model="editForm.courseIdsArray">
-            <el-checkbox v-for="item in courseList"
-                         :key="item.courseId"
-                         :label="item.courseId"
-                         :value="item.courseName">{{item.courseName}}
-            </el-checkbox>
+            <el-checkbox v-for="item in courseList" :key="item.courseId" :label="item.courseId" :value="item.courseName">{{item.courseName}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="教师名字" prop="teaName">
@@ -80,11 +76,7 @@
         </el-form-item>
         <el-form-item label="时区" prop="teaTimeZone">
           <el-select v-model="editForm.teaTimeZone" placeholder="请选择时区">
-            <el-option v-for="item in dictList"
-                       :key="item.paramId"
-                       :label="item.paramValue"
-                       :value="item.paramId">
-            </el-option>
+            <el-option v-for="item in dictList" :key="item.paramId" :label="item.paramValue" :value="item.paramId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="学校CN" prop="teaSchoolCh">
@@ -114,11 +106,7 @@
       <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
         <el-form-item label="课程项目" prop="courseIdsArray">
           <el-checkbox-group v-model="addForm.courseIdsArray">
-            <el-checkbox v-for="item in courseList"
-                         :key="item.courseId"
-                         :label="item.courseId"
-                         :value="item.courseName">{{item.courseName}}
-            </el-checkbox>
+            <el-checkbox v-for="item in courseList" :key="item.courseId" :label="item.courseId" :value="item.courseName">{{item.courseName}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="教师名字" prop="teaName">
@@ -138,11 +126,7 @@
         </el-form-item>
         <el-form-item label="时区" prop="teaTimeZone">
           <el-select v-model="addForm.teaTimeZone" placeholder="请选择时区">
-            <el-option v-for="item in dictList"
-                       :key="item.paramId"
-                       :label="item.paramValue"
-                       :value="item.paramId">
-            </el-option>
+            <el-option v-for="item in dictList" :key="item.paramId" :label="item.paramValue" :value="item.paramId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="学校CN" prop="teaSchoolCh">
@@ -172,21 +156,11 @@
       <el-form :model="transForm" label-width="80px" :rules="transFormRules" ref="transForm">
         <el-form-item label="课程项目" prop="courseId">
           <el-select v-model="transForm.courseId" placeholder="请选择课程" @change="transCourseStu">
-            <el-option v-for="item in courseList"
-                       :key="item.courseId"
-                       :label="item.courseName"
-                       :value="item.courseId">
-            </el-option>
+            <el-option v-for="item in courseList" :key="item.courseId" :label="item.courseName" :value="item.courseId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="分配学生" prop="stuIdsArray">
-          <el-transfer
-            filterable
-            :titles="['可选学生', '已分配学生']"
-            filter-placeholder="请输入学生名字"
-            v-model="transForm.stuIdsArray"
-            :data="allstuList">
-          </el-transfer>
+          <el-transfer filterable :titles="['可选学生', '已分配学生']" filter-placeholder="请输入学生名字" v-model="transForm.stuIdsArray" :data="allstuList"></el-transfer>
         </el-form-item>
       </el-form>
 

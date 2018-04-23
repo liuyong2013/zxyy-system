@@ -498,6 +498,7 @@
               //NProgress.start();
               let para = Object.assign({}, this.editForm);
               updateStudent(para).then((res) => {
+                console.log(res)
                 this.editLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {

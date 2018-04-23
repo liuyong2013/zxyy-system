@@ -1,22 +1,24 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
-    </el-form-item>
-    <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
-    </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-    <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
-      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
-    </el-form-item>
-  </el-form>
+  <div class="login_box" style="background-image: url(./static/pc_bg.png)">
+    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+      <h3 class="title">系统登录</h3>
+      <el-form-item prop="account">
+        <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+      </el-form-item>
+      <el-form-item prop="checkPass">
+        <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+      <el-form-item style="width:100%;">
+        <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+        <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
-  import { requestUser,requestToken } from '../api/api';
+  import {requestUser, requestToken} from '../api/api';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -28,11 +30,11 @@
         },
         rules2: {
           account: [
-            { required: true, message: '请输入账号', trigger: 'blur' },
+            {required: true, message: '请输入账号', trigger: 'blur'},
             //{ validator: validaePass }
           ],
           checkPass: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
+            {required: true, message: '请输入密码', trigger: 'blur'},
             //{ validator: validaePass2 }
           ]
         },
@@ -48,14 +50,14 @@
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
             //_this.$router.replace('/table');
-            this.logining = true; 
+            this.logining = true;
             let params = new URLSearchParams();
-            params.append("username","fg@|"+this.ruleForm2.account);
-            params.append("password",this.ruleForm2.checkPass);
-            params.append("grant_type","password");
-            params.append("scope","read");
-            params.append("client_id","rajithapp");
-            params.append("client_secret","secret");
+            params.append("username", "fg@|" + this.ruleForm2.account);
+            params.append("password", this.ruleForm2.checkPass);
+            params.append("grant_type", "password");
+            params.append("scope", "read");
+            params.append("client_id", "rajithapp");
+            params.append("client_secret", "secret");
             requestToken(params).then(data => {
               var token = data.value;
               this.logining = false;
@@ -66,7 +68,7 @@
                   this.logining = false;
 
                   //NProgress.done();
-                  let { message, status, datas } = data;
+                  let {message, status, datas} = data;
                   if (status !== 0) {
                     this.$message({
                       message: message,
@@ -74,16 +76,16 @@
                     });
                   } else {
                     sessionStorage.setItem('user', JSON.stringify(datas));
-                    this.$router.push({ path: '/admin/index' });
+                    this.$router.push({path: '/admin/index'});
                   }
                 });
               } else {
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('user');
                 this.$message({
-                      message: "用户名密码错误",
-                      type: 'error'
-                    });
+                  message: "用户名密码错误",
+                  type: 'error'
+                });
               }
             });
           } else {
@@ -98,25 +100,34 @@
 </script>
 
 <style lang="scss" scoped>
-  .login-container {
-    /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 180px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-    .title {
-      margin: 0px auto 40px auto;
-      text-align: center;
-      color: #505458;
-    }
-    .remember {
-      margin: 0px 0px 35px 0px;
+  .login_box {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top: 1px solid transparent;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    .login-container {
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      background-clip: padding-box;
+      margin: 180px auto;
+      width: 350px;
+      padding: 35px 35px 15px 35px;
+      background: #fff;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 0 40px 6px #cac6c6;
+      .title {
+        margin: 0px auto 40px auto;
+        text-align: center;
+        color: #505458;
+      }
+      .remember {
+        margin: 0px 0px 35px 0px;
+      }
     }
   }
 </style>
