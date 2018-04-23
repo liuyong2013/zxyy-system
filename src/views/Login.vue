@@ -1,5 +1,6 @@
 <template>
   <div class="login_box" style="background-image: url(./static/pc_bg.png)">
+    <img src="../assets/long_logo.png" alt="logo" class="long_logo">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
       <h3 class="title">系统登录</h3>
       <el-form-item prop="account">
@@ -116,6 +117,15 @@
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    position: relative;
+    .long_logo {
+      width: 210px;
+      height: 34px;
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      margin-left: -105px;
+    }
     .login-container {
       -webkit-border-radius: 5px;
       border-radius: 5px;

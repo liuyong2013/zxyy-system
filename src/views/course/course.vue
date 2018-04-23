@@ -33,7 +33,7 @@
       <el-table-column prop="courseTotalnum" label="课时数" width="120" sortable></el-table-column>
       <el-table-column prop="courseStatus" label="状态" width="100" :formatter="formatStatus" sortable></el-table-column>
       <el-table-column label="操作" width="150">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </template>
