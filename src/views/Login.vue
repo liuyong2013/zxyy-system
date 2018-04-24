@@ -53,7 +53,7 @@
             //_this.$router.replace('/table');
             this.logining = true;
             let params = new URLSearchParams();
-            params.append("username", "fg@|" + this.ruleForm2.account);
+            params.append("username", "system@|" + this.ruleForm2.account);
             params.append("password", this.ruleForm2.checkPass);
             params.append("grant_type", "password");
             params.append("scope", "read");
@@ -77,7 +77,7 @@
                     });
                   } else {
                     sessionStorage.setItem('user', JSON.stringify(datas));
-                    this.$router.push({path: '/admin/index'});
+                    this.$router.push({path: '/system/index'});
                   }
                 });
               } else {
