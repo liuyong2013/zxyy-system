@@ -4,17 +4,17 @@
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/admin/index' }"><b>首页</b></el-breadcrumb-item>
-        <el-breadcrumb-item>课程信息</el-breadcrumb-item>
+        <el-breadcrumb-item>部门信息</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
     <!--工具条-->
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="课程名字"></el-input>
+          <el-input v-model="filters.name" placeholder="部门名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getCoursePage">查询</el-button>
+          <el-button type="primary" v-on:click="getDepartPage">查询</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -23,15 +23,13 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="depts" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="60"></el-table-column>
-      <el-table-column prop="courseId" label="课程ID" width="120" sortable></el-table-column>
-      <el-table-column prop="courseName" label="课程名称" min-width="180" sortable></el-table-column>
-      <el-table-column prop="chName" label="中文名" width="100" sortable></el-table-column>
-      <el-table-column prop="enName" label="英文名" width="120" sortable></el-table-column>
-      <el-table-column prop="courseTotalnum" label="课时数" width="120" sortable></el-table-column>
-      <el-table-column prop="courseStatus" label="状态" width="100" :formatter="formatStatus" sortable></el-table-column>
+      <el-table-column prop="deptCode" label="部门编号" width="120" sortable></el-table-column>
+      <el-table-column prop="deptName" label="部门名称" width="180" sortable></el-table-column>
+      <el-table-column prop="deptEmail" label="部门邮箱" min-width="180" sortable></el-table-column>
+      <el-table-column prop="deptStatus" label="部门状态" width="100" :formatter="formatStatus" sortable></el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -50,20 +48,20 @@
     <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="课程名字" prop="courseName">
-          <el-input v-model="editForm.courseName" auto-complete="off"></el-input>
+        <el-form-item label="部门编号" prop="deptCode">
+          <el-input v-model="editForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="中文名" prop="chName">
-          <el-input v-model="editForm.chName" auto-complete="off"></el-input>
+        <el-form-item label="部门名称" prop="deptName">
+          <el-input v-model="editForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="英文名" prop="enName">
-          <el-input v-model="editForm.enName" auto-complete="off"></el-input>
+        <el-form-item label="部门邮箱" prop="deptEmail">
+          <el-input v-model="editForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="课时" prop="courseTotalnum">
-          <el-input-number v-model="editForm.courseTotalnum" :min="0" :max="200"></el-input-number>
+        <el-form-item label="邮箱密码" prop="deptPassword">
+          <el-input v-model="editForm.deptPassword" auto-complete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="courseStatus">
-          <el-radio-group v-model="editForm.courseStatus">
+        <el-form-item label="状态" prop="deptStatus">
+          <el-radio-group v-model="editForm.deptStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
           </el-radio-group>
@@ -78,20 +76,20 @@
     <!--新增界面-->
     <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="课程名字" prop="courseName">
-          <el-input v-model="addForm.courseName" auto-complete="off"></el-input>
+        <el-form-item label="部门编号" prop="deptCode">
+          <el-input v-model="addForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="中文名" prop="chName">
-          <el-input v-model="addForm.chName" auto-complete="off"></el-input>
+        <el-form-item label="部门名称" prop="deptName">
+          <el-input v-model="addForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="英文名" prop="enName">
-          <el-input v-model="addForm.enName" auto-complete="off"></el-input>
+        <el-form-item label="部门邮箱" prop="deptEmail">
+          <el-input v-model="addForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="课时" prop="courseTotalnum">
-          <el-input-number v-model="addForm.courseTotalnum" :min="0" :max="200"></el-input-number>
+        <el-form-item label="邮箱密码" prop="deptPassword">
+          <el-input v-model="addForm.deptPassword" auto-complete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="courseStatus">
-          <el-radio-group v-model="addForm.courseStatus">
+        <el-form-item label="状态" prop="deptStatus">
+          <el-radio-group v-model="addForm.deptStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
           </el-radio-group>
@@ -108,7 +106,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import {getCoursePage, saveCourse, getCourse, deleteCourse, updateCourse} from '../../api/api';
+  import {getDepartPage, getDepartUser, saveDepartUser, updateDepartUser, deleteDepartUser} from '../../api/api';
 
   export default {
     data() {
@@ -116,7 +114,7 @@
         filters: {
           name: ''
         },
-        users: [],
+        depts: [],
         total: 0,
         page: 1,
         listLoading: false,
@@ -125,34 +123,52 @@
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
         editFormRules: {
-          courseName: [
-            {required: true, message: '请输入课程名称', trigger: 'blur'}
+           deptCode: [
+            {required: true, message: '请输入部门编号', trigger: 'blur'}
+          ],
+          deptName: [
+            {required: true, message: '请输入部门名称', trigger: 'blur'}
+          ],
+          deptEmail: [
+            {required: true, message: '请输入部门邮箱', trigger: 'blur'}
+          ],
+          deptPassword: [
+            {required: true, message: '请输入邮箱密码', trigger: 'blur'}
           ]
+
         },
         //编辑界面数据
         editForm: {
-          courseId: 0,
-          courseName: '',
-          chName: '',
-          enName: '',
-          courseTotalnum: -1,
-          courseStatus: 0
+          deptId: 0,
+          deptName: '',
+          deptEmail: '',
+          deptPassword: '',
+          deptStatus: -1
         },
 
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          courseName: [
-            {required: true, message: '请输入课程名称', trigger: 'blur'}
+           deptCode: [
+            {required: true, message: '请输入部门编号', trigger: 'blur'}
+          ],
+          deptName: [
+            {required: true, message: '请输入部门名称', trigger: 'blur'}
+          ],
+          deptEmail: [
+            {required: true, message: '请输入部门邮箱', trigger: 'blur'}
+          ],
+          deptPassword: [
+            {required: true, message: '请输入邮箱密码', trigger: 'blur'}
           ]
         },
         //新增界面数据
         addForm: {
-          courseName: '',
-          chName: '',
-          enName: '',
-          courseTotalnum: -1,
-          courseStatus: 0
+          deptCode:'',
+          deptName: '',
+          deptEmail: '',
+          deptPassword: '',
+          deptStatus: -1
         }
 
       }
@@ -160,21 +176,21 @@
     methods: {
       //状态显示转换
       formatStatus: function (row, column) {
-        return row.courseStatus == 0 ? '启用' : row.courseStatus == 1 ? '停用' : '未知';
+        return row.deptStatus == 0 ? '启用' : row.deptStatus == 1 ? '停用' : '未知';
       },
       handleCurrentChange(val) {
         this.page = val;
-        this.getCoursePage();
+        this.getDepartPage();
       },
       //获取用户列表
-      getCoursePage() {
+      getDepartPage() {
         let param = new URLSearchParams();
         param.append("str", this.filters.name);
         param.append("pageNo", this.page);
         param.append("pageSize", 20);
         this.listLoading = true;
         //NProgress.start();
-        getCoursePage(param).then((res) => {
+        getDepartPage(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
             this.$message({
@@ -183,7 +199,7 @@
             });
           } else {
             this.total = datas.total;
-            this.users = datas.list;
+            this.depts = datas.list;
             this.listLoading = false;
           }
           //NProgress.done();
@@ -196,8 +212,8 @@
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = {courseId: row.courseId};
-          deleteCourse(para).then((res) => {
+          let para = {deptId: row.deptId};
+          deleteDepartUser(para).then((res) => {
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
@@ -206,7 +222,7 @@
                 type: 'error'
               });
             } else {
-              this.getCoursePage();
+              this.getDepartPage();
             }
 
           });
@@ -217,9 +233,9 @@
       //显示编辑界面
       handleEdit: function (index, row) {
         let param = new URLSearchParams();
-        param.append("courseId", row.courseId);
+        param.append("deptId", row.deptId);
         //NProgress.start();
-        getCourse(param).then((res) => {
+        getDepartUser(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
             this.$message({
@@ -237,11 +253,11 @@
       handleAdd: function () {
         this.addFormVisible = true;
         this.addForm = {
-          courseName: '',
-          chName: '',
-          enName: '',
-          courseTotalnum: 0,
-          courseStatus: 0
+          deptCode: '',
+          deptName: '',
+          deptEmail: '',
+          deptPassword: '',
+          deptStatus: 0
         };
       },
       //编辑
@@ -252,7 +268,7 @@
               this.editLoading = true;
               //NProgress.start();
               let para = Object.assign({}, this.editForm);
-              updateCourse(para).then((res) => {
+              updateDepartUser(para).then((res) => {
                 this.editLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
@@ -263,7 +279,7 @@
                 } else {
                   this.$refs['editForm'].resetFields();
                   this.editFormVisible = false;
-                  this.getCoursePage();
+                  this.getDepartPage();
                 }
               });
             });
@@ -278,7 +294,7 @@
               this.addLoading = true;
               //NProgress.start();
               let param = Object.assign({}, this.addForm);
-              saveCourse(param).then((res) => {
+              saveDepartUser(param).then((res) => {
                 this.addLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
@@ -289,7 +305,7 @@
                 } else {
                   this.$refs['addForm'].resetFields();
                   this.addFormVisible = false;
-                  this.getCoursePage();
+                  this.getDepartPage();
                 }
               });
             });
@@ -301,14 +317,14 @@
       },
       //批量删除
       batchRemove: function () {
-        var ids = this.sels.map(item => item.courseId).toString();
+        var ids = this.sels.map(item => item.deptId).toString();
         this.$confirm('确认删除选中记录吗？', '提示', {
           type: 'warning'
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = {courseId: ids};
-          deleteCourse(para).then((res) => {
+          let para = {deptId: ids};
+          deleteDepartUser(para).then((res) => {
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
@@ -317,7 +333,7 @@
                 type: 'error'
               });
             } else {
-              this.getCoursePage();
+              this.getDepartPage();
             }
           });
         }).catch(() => {
@@ -326,7 +342,7 @@
       }
     },
     mounted() {
-      this.getCoursePage();
+      this.getDepartPage();
     }
   }
 

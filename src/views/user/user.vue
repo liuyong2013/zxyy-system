@@ -3,18 +3,18 @@
     <!--显示菜单路径-->
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/admin/index' }"><b>首页</b></el-breadcrumb-item>
-        <el-breadcrumb-item>课程信息</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/system/index' }"><b>首页</b></el-breadcrumb-item>
+        <el-breadcrumb-item>用户信息</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
     <!--工具条-->
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="课程名字"></el-input>
+          <el-input v-model="filters.name" placeholder="老师名字"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getCoursePage">查询</el-button>
+          <el-button type="primary" v-on:click="getFgUserPage">查询</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -25,13 +25,11 @@
     <!--列表-->
     <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="60"></el-table-column>
-      <el-table-column prop="courseId" label="课程ID" width="120" sortable></el-table-column>
-      <el-table-column prop="courseName" label="课程名称" min-width="180" sortable></el-table-column>
-      <el-table-column prop="chName" label="中文名" width="100" sortable></el-table-column>
-      <el-table-column prop="enName" label="英文名" width="120" sortable></el-table-column>
-      <el-table-column prop="courseTotalnum" label="课时数" width="120" sortable></el-table-column>
-      <el-table-column prop="courseStatus" label="状态" width="100" :formatter="formatStatus" sortable></el-table-column>
+      <el-table-column type="index" label="序号" width="60"></el-table-column>
+      <el-table-column prop="fgPersonName" label="分管用户名" width="120" sortable></el-table-column>
+      <el-table-column prop="fgPersonPhone" label="分管联系电话" min-width="180" sortable></el-table-column>
+      <el-table-column prop="fgPersonSex" label="性别" width="100" :formatter="formatSex" sortable></el-table-column>
+      <el-table-column prop="fgPersonStatus" label="状态" width="100" :formatter="formatStatus" sortable></el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -50,20 +48,20 @@
     <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="课程名字" prop="courseName">
-          <el-input v-model="editForm.courseName" auto-complete="off"></el-input>
+        <el-form-item label="用户名" prop="fgPersonName">
+          <el-input v-model="editForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="中文名" prop="chName">
-          <el-input v-model="editForm.chName" auto-complete="off"></el-input>
+        <el-form-item label="联系电话" prop="fgPersonPhone">
+          <el-input v-model="editForm.fgPersonPhone" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="英文名" prop="enName">
-          <el-input v-model="editForm.enName" auto-complete="off"></el-input>
+        <el-form-item label="性别" prop="fgPersonSex">
+          <el-radio-group v-model="editForm.fgPersonSex">
+            <el-radio class="radio" :label="0">男</el-radio>
+            <el-radio class="radio" :label="1">女</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="课时" prop="courseTotalnum">
-          <el-input-number v-model="editForm.courseTotalnum" :min="0" :max="200"></el-input-number>
-        </el-form-item>
-        <el-form-item label="状态" prop="courseStatus">
-          <el-radio-group v-model="editForm.courseStatus">
+        <el-form-item label="状态" prop="fgPersonStatus">
+          <el-radio-group v-model="editForm.fgPersonStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
           </el-radio-group>
@@ -78,20 +76,20 @@
     <!--新增界面-->
     <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="课程名字" prop="courseName">
-          <el-input v-model="addForm.courseName" auto-complete="off"></el-input>
+        <el-form-item label="用户名" prop="fgPersonName">
+          <el-input v-model="addForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="中文名" prop="chName">
-          <el-input v-model="addForm.chName" auto-complete="off"></el-input>
+        <el-form-item label="联系电话" prop="fgPersonPhone">
+          <el-input v-model="addForm.fgPersonPhone" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="英文名" prop="enName">
-          <el-input v-model="addForm.enName" auto-complete="off"></el-input>
+         <el-form-item label="性别" prop="fgPersonSex">
+          <el-radio-group v-model="editForm.fgPersonSex">
+            <el-radio class="radio" :label="0">男</el-radio>
+            <el-radio class="radio" :label="1">女</el-radio>cd
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="课时" prop="courseTotalnum">
-          <el-input-number v-model="addForm.courseTotalnum" :min="0" :max="200"></el-input-number>
-        </el-form-item>
-        <el-form-item label="状态" prop="courseStatus">
-          <el-radio-group v-model="addForm.courseStatus">
+        <el-form-item label="状态" prop="fgPersonStatus">
+          <el-radio-group v-model="editForm.fgPersonStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
           </el-radio-group>
@@ -108,7 +106,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import {getCoursePage, saveCourse, getCourse, deleteCourse, updateCourse} from '../../api/api';
+  import {getFgUserPage, getFgUser, saveFgUser, updateFgUser, deleteFgUser} from '../../api/api';
 
   export default {
     data() {
@@ -125,18 +123,17 @@
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
         editFormRules: {
-          courseName: [
-            {required: true, message: '请输入课程名称', trigger: 'blur'}
+          fgPersonName: [
+            {required: true, message: '请输入老师名称', trigger: 'blur'}
           ]
         },
         //编辑界面数据
         editForm: {
-          courseId: 0,
-          courseName: '',
-          chName: '',
-          enName: '',
-          courseTotalnum: -1,
-          courseStatus: 0
+          deptId: '',
+          deptName: '',
+          deptEmail: '',
+          deptPassword:'',
+          deptStatus: 0
         },
 
         addFormVisible: false,//新增界面是否显示
@@ -160,21 +157,24 @@
     methods: {
       //状态显示转换
       formatStatus: function (row, column) {
-        return row.courseStatus == 0 ? '启用' : row.courseStatus == 1 ? '停用' : '未知';
+        return row.fgPersonStatus == 0 ? '启用' : row.fgPersonStatus == 1 ? '停用' : '未知';
+      },
+      formatSex: function (row, column) {
+        return row.fgPersonSex == 0 ? '男' : row.fgPersonSex == 1 ? '女' : '未知';
       },
       handleCurrentChange(val) {
         this.page = val;
-        this.getCoursePage();
+        this.getFgUserPage();
       },
       //获取用户列表
-      getCoursePage() {
+      getFgUserPage() {
         let param = new URLSearchParams();
         param.append("str", this.filters.name);
         param.append("pageNo", this.page);
         param.append("pageSize", 20);
         this.listLoading = true;
         //NProgress.start();
-        getCoursePage(param).then((res) => {
+        getFgUserPage(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
             this.$message({
@@ -196,8 +196,8 @@
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = {courseId: row.courseId};
-          deleteCourse(para).then((res) => {
+          let para = {fgPersonId: row.fgPersonId};
+          deleteFgUser(para).then((res) => {
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
@@ -206,7 +206,7 @@
                 type: 'error'
               });
             } else {
-              this.getCoursePage();
+              this.getFgUserPage();
             }
 
           });
@@ -217,9 +217,9 @@
       //显示编辑界面
       handleEdit: function (index, row) {
         let param = new URLSearchParams();
-        param.append("courseId", row.courseId);
+        param.append("fgPersonId", row.fgPersonId);
         //NProgress.start();
-        getCourse(param).then((res) => {
+        getFgUser(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
             this.$message({
@@ -237,11 +237,10 @@
       handleAdd: function () {
         this.addFormVisible = true;
         this.addForm = {
-          courseName: '',
-          chName: '',
-          enName: '',
-          courseTotalnum: 0,
-          courseStatus: 0
+          fgPersonName: '',
+          fgPersonPhone: '',
+          fgPersonSex: 0,
+          fgPersonStatus: 0
         };
       },
       //编辑
@@ -252,7 +251,7 @@
               this.editLoading = true;
               //NProgress.start();
               let para = Object.assign({}, this.editForm);
-              updateCourse(para).then((res) => {
+              updateFgUser(para).then((res) => {
                 this.editLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
@@ -263,7 +262,7 @@
                 } else {
                   this.$refs['editForm'].resetFields();
                   this.editFormVisible = false;
-                  this.getCoursePage();
+                  this.getFgUserPage();
                 }
               });
             });
@@ -278,7 +277,7 @@
               this.addLoading = true;
               //NProgress.start();
               let param = Object.assign({}, this.addForm);
-              saveCourse(param).then((res) => {
+              saveFgUser(param).then((res) => {
                 this.addLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
@@ -289,7 +288,7 @@
                 } else {
                   this.$refs['addForm'].resetFields();
                   this.addFormVisible = false;
-                  this.getCoursePage();
+                  this.getFgUserPage();
                 }
               });
             });
@@ -301,14 +300,14 @@
       },
       //批量删除
       batchRemove: function () {
-        var ids = this.sels.map(item => item.courseId).toString();
+        var ids = this.sels.map(item => item.fgPersonId).toString();
         this.$confirm('确认删除选中记录吗？', '提示', {
           type: 'warning'
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = {courseId: ids};
-          deleteCourse(para).then((res) => {
+          let para = {fgPersonId: ids};
+          deleteFgUser(para).then((res) => {
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
@@ -317,7 +316,7 @@
                 type: 'error'
               });
             } else {
-              this.getCoursePage();
+              this.getFgUserPage();
             }
           });
         }).catch(() => {
@@ -326,7 +325,7 @@
       }
     },
     mounted() {
-      this.getCoursePage();
+      this.getFgUserPage();
     }
   }
 

@@ -28,7 +28,7 @@ let routes = [
         iconCls: 'iconfont icon-home',
         leaf: true,//只有一个节点
         children: [
-            { path: '/system/index', component: AdminIndex, name: '首页' }
+            { path: '/system/index', component: SysIndex, name: '首页' }
         ]
     },
     {
