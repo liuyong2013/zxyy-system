@@ -22,7 +22,7 @@
       </el-form>
     </el-col>
 
-    <!--列表-->
+    <!--列表  totest-->
     <el-table :data="depts" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="60"></el-table-column>
