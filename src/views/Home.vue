@@ -137,7 +137,7 @@
     .header {
       height: 50px;
       line-height: 50px;
-      background: #004870;
+      background: #000408;
       position: relative;
       .userinfo {
         text-align: right;
@@ -163,13 +163,13 @@
         float: left;
         width: 59px;
         line-height: 26px;
-        background-color: #004870;
+        background-color: #000408;
       }
       .topbar-logos {
         float: left;
         width: 120px;
         line-height: 26px;
-        background-color: #004870;
+        background-color: #000408;
       }
       .topbar-logo img, .topbar-logos img {
         height: 40px;
@@ -225,7 +225,7 @@
       overflow: hidden;
       aside {
         min-width: 50px;
-        background: #11347a;
+        background: #333333;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -241,7 +241,7 @@
           height: -webkit-calc(100% - 80px);
           height: calc(100% - 80px);
           border-radius: 0px;
-          background-color: #11347a;
+          background-color: #333333;
           border-right: 0px;
         }
         .el-submenu .el-menu-item {
@@ -260,7 +260,7 @@
         }
 
         .el-menu-item:hover, .el-submenu .el-menu-item:hover, .el-submenu__title:hover {
-          background-color: #004870;
+          background-color: #000408;
         }
       }
       .menu-collapsed {
@@ -273,7 +273,7 @@
       }
 
       .menu-toggle {
-        background: #11347a;
+        background: #333333;
         text-align: center;
         color: white;
         height: 26px;

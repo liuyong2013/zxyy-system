@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import {indexGetNowDate, indexGetCourseInfo, indexGetCourseTable} from '../../api/api';
+  import {} from '../../api/api';
 
   export default {
     data() {

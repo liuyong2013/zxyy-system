@@ -2,8 +2,9 @@ import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import locale from 'element-ui/lib/locale/lang/en'
+import 'url-search-params-polyfill';
+import promise from 'es6-promise';
 
-Vue.use(ElementUI, {locale})
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/iconfont.css'
@@ -22,6 +23,8 @@ import routes from './routes'
 import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios';
 
+promise.polyfill();
+Vue.use(ElementUI, {locale});
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.use(Vuex);
