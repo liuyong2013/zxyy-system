@@ -1,5 +1,5 @@
 <template>
-  <div class="login_box" style="background-image: url(./static/pc_bg.png)">
+  <div class="login_box" style="background-image: url(./static/pc_bg.jpg)">
     <img src="../assets/long_logo.png" alt="logo" class="long_logo">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
       <h3 class="title">系统登录</h3>
