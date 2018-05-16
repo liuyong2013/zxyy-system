@@ -77,7 +77,7 @@
                     });
                   } else {
                     sessionStorage.setItem('user', JSON.stringify(datas));
-                    this.$router.push({path: '/system/index'});
+                    this.$router.push({path: '/system/dept'});
                   }
                 });
               } else {

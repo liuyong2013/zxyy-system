@@ -8,15 +8,16 @@
         <a href="/"><img src="../assets/logotxt.png"></a>
       </div>
       <div class="tools">在线预约系统</div>
-      <div class="userinfo">
-        <el-dropdown trigger="hover">
+      <div class="userinfo" @click="logout">
+        <span class="el-dropdown-link userinfo-inner"><img src="../assets/head.jpg"/> {{sysUserName}}</span>
+        <!--<el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner"><img src="../assets/head.jpg"/> {{sysUserName}}</span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>我的消息</el-dropdown-item>
             <el-dropdown-item>设置</el-dropdown-item>
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown>-->
       </div>
     </el-col>
     <el-col :span="24" class="main">
@@ -24,8 +25,8 @@
       <aside :class="{showSidebar:!collapsed}">
         <!--展开折叠开关-->
         <div class="menu-toggle" @click.prevent="collapse">
-          <i class="iconfont icon-menufold" v-show="!collapsed"></i>
-          <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
+          <i class="iconfont icon-icon-menufold" v-show="!collapsed"></i>
+          <i class="iconfont icon-icon-menuunfold" v-show="collapsed"></i>
         </div>
         <!--展开折叠开关...-->
 
@@ -64,9 +65,8 @@
     data() {
       return {
         sysName: 'VUEADMIN',
-        collapsed: true,
+        collapsed: false,
         sysUserName: '',
-        sysUserAvatar: '',
         form: {
           name: '',
           region: '',
@@ -80,29 +80,21 @@
       }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
-      },
-      handleopen() {
-        //console.log('handleopen');
-      },
-      handleclose() {
-        //console.log('handleclose');
-      },
-      handleselect: function (a, b) {
-      },
       //退出登录
       logout: function () {
-        var _this = this;
+        // let _this = this;
         this.$confirm('确认退出吗?', '提示', {
-          //type: 'warning'
+          confirmButtonText: '退出',
+          cancelButtonText: '取消',
         }).then(() => {
           sessionStorage.removeItem('user');
-          setTimeout(() => {
-            window.location.reload();
-            _this.$router.push('/login');
-          }, 0)
-        }).catch(() => {
+          this.$router.push('/login');
+          // setTimeout(() => {
+          //   window.location.reload();
+          //   _this.$router.push('/login');
+          // }, 0)
+        }).catch((err) => {
+          console.log('logout-err', err);
         });
       },
       //折叠导航栏
@@ -114,19 +106,18 @@
       }
     },
     mounted() {
-      var user = sessionStorage.getItem('user');
+      let user = sessionStorage.getItem('user');
       if (user) {
         user = JSON.parse(user);
-        this.sysUserName = user.fgPersonName || '';
-        this.sysUserAvatar = user.avatar || '';
+        this.sysUserName = user.userLoginName || '';
+        // this.sysUserAvatar = user.avatar || '';
       }
-      console.log(this.$router.options.routes)
+      // console.log(this.$router.options.routes)
     }
   }
 </script>
 
 <style scoped lang="scss">
-  // @import '~scss_vars';
 
   .container {
     position: absolute;
@@ -225,7 +216,7 @@
       overflow: hidden;
       aside {
         min-width: 50px;
-        background: #333333;
+        background: #111111;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -241,7 +232,7 @@
           height: -webkit-calc(100% - 80px);
           height: calc(100% - 80px);
           border-radius: 0px;
-          background-color: #333333;
+          background-color: #111111;
           border-right: 0px;
         }
         .el-submenu .el-menu-item {
@@ -273,7 +264,7 @@
       }
 
       .menu-toggle {
-        background: #333333;
+        background: #111111;
         text-align: center;
         color: white;
         height: 26px;

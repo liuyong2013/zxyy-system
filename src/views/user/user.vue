@@ -3,12 +3,12 @@
     <!--显示菜单路径-->
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/system/index' }"><b>首页</b></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/system/user' }"><b>分管用户</b></el-breadcrumb-item>
         <el-breadcrumb-item>用户信息</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
     <!--工具条-->
-    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+    <el-col :span="24" class="toolbar" style="padding-bottom: 0;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
           <el-input v-model="filters.name" placeholder="老师名字"></el-input>
@@ -24,11 +24,11 @@
 
     <!--列表-->
     <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" label="序号" width="60"></el-table-column>
-      <el-table-column prop="fgPersonName" label="分管用户名" width="120" sortable></el-table-column>
-      <el-table-column prop="fgPersonPhone" label="分管联系电话" min-width="180" sortable></el-table-column>
+      <el-table-column type="selection" width="50"></el-table-column>
+      <el-table-column type="index" label="#" width="50"></el-table-column>
+      <el-table-column prop="fgPersonName" label="分管用户名" min-width="120" sortable></el-table-column>
       <el-table-column prop="fgPersonSex" label="性别" width="100" :formatter="formatSex" sortable></el-table-column>
+      <el-table-column prop="fgPersonPhone" label="分管联系电话" min-width="120" sortable></el-table-column>
       <el-table-column prop="fgPersonStatus" label="状态" width="100" :formatter="formatStatus" sortable></el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
@@ -46,21 +46,21 @@
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="用户名" prop="fgPersonName">
+    <el-dialog title="编辑" center :visible.sync="editFormVisible" :close-on-click-modal="false">
+      <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
+        <el-form-item label="用户名：" prop="fgPersonName">
           <el-input v-model="editForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" prop="fgPersonPhone">
-          <el-input v-model="editForm.fgPersonPhone" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="fgPersonSex">
+        <el-form-item label="性别：" prop="fgPersonSex">
           <el-radio-group v-model="editForm.fgPersonSex">
             <el-radio class="radio" :label="0">男</el-radio>
             <el-radio class="radio" :label="1">女</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="状态" prop="fgPersonStatus">
+        <el-form-item label="电话：" prop="fgPersonPhone">
+          <el-input v-model="editForm.fgPersonPhone" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="状态：" prop="fgPersonStatus">
           <el-radio-group v-model="editForm.fgPersonStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
@@ -74,21 +74,23 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="用户名" prop="fgPersonName">
+    <el-dialog title="新增" center :visible.sync="addFormVisible" :close-on-click-modal="false">
+      <el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
+        <el-form-item label="用户名：" prop="fgPersonName">
           <el-input v-model="addForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" prop="fgPersonPhone">
-          <el-input v-model="addForm.fgPersonPhone" auto-complete="off"></el-input>
-        </el-form-item>
-         <el-form-item label="性别" prop="fgPersonSex">
+        <el-form-item label="性别：" prop="fgPersonSex">
           <el-radio-group v-model="editForm.fgPersonSex">
             <el-radio class="radio" :label="0">男</el-radio>
-            <el-radio class="radio" :label="1">女</el-radio>cd
+            <el-radio class="radio" :label="1">女</el-radio>
+            cd
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="状态" prop="fgPersonStatus">
+        <el-form-item label="电话：" prop="fgPersonPhone">
+          <el-input v-model="addForm.fgPersonPhone" auto-complete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item label="状态：" prop="fgPersonStatus">
           <el-radio-group v-model="editForm.fgPersonStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
@@ -132,7 +134,7 @@
           deptId: '',
           deptName: '',
           deptEmail: '',
-          deptPassword:'',
+          deptPassword: '',
           deptStatus: 0
         },
 
@@ -157,10 +159,10 @@
     methods: {
       //状态显示转换
       formatStatus: function (row, column) {
-        return row.fgPersonStatus == 0 ? '启用' : row.fgPersonStatus == 1 ? '停用' : '未知';
+        return row.fgPersonStatus === 0 ? '启用' : row.fgPersonStatus === 1 ? '停用' : '未知';
       },
       formatSex: function (row, column) {
-        return row.fgPersonSex == 0 ? '男' : row.fgPersonSex == 1 ? '女' : '未知';
+        return row.fgPersonSex === 0 ? '男' : row.fgPersonSex === 1 ? '女' : '未知';
       },
       handleCurrentChange(val) {
         this.page = val;
@@ -300,7 +302,7 @@
       },
       //批量删除
       batchRemove: function () {
-        var ids = this.sels.map(item => item.fgPersonId).toString();
+        let ids = this.sels.map(item => item.fgPersonId).toString();
         this.$confirm('确认删除选中记录吗？', '提示', {
           type: 'warning'
         }).then(() => {

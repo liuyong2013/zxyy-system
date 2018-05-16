@@ -7,7 +7,8 @@ import promise from 'es6-promise';
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-import '@/assets/iconfont.css'
+import '@/assets/fonts/iconfont.css'
+// import '@/assets/iconfont.css'
 import '@/assets/styles/main.scss'
 //import './assets/theme/theme-green/index.css'
 import VueRouter from 'vue-router'
@@ -20,7 +21,6 @@ import routes from './routes'
 // import Mock from './mock'
 //Mock.bootstrap();
 
-import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios';
 
 promise.polyfill();

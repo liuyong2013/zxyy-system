@@ -3,12 +3,12 @@
     <!--显示菜单路径-->
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/admin/index' }"><b>首页</b></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/system/dept' }"><b>部门管理</b></el-breadcrumb-item>
         <el-breadcrumb-item>部门信息</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
     <!--工具条-->
-    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+    <el-col :span="24" class="toolbar" style="padding-bottom: 0;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
           <el-input v-model="filters.name" placeholder="部门名称"></el-input>
@@ -24,11 +24,11 @@
 
     <!--列表  totest-->
     <el-table :data="depts" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="60"></el-table-column>
+      <el-table-column type="selection" width="50"></el-table-column>
+      <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="deptCode" label="部门编号" width="120" sortable></el-table-column>
       <el-table-column prop="deptName" label="部门名称" width="180" sortable></el-table-column>
-      <el-table-column prop="deptEmail" label="部门邮箱" min-width="180" sortable></el-table-column>
+      <el-table-column prop="deptEmail" label="部门邮箱" min-width="120" sortable></el-table-column>
       <el-table-column prop="deptStatus" label="部门状态" width="100" :formatter="formatStatus" sortable></el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
@@ -46,21 +46,21 @@
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="部门编号" prop="deptCode">
+    <el-dialog title="编辑" center :visible.sync="editFormVisible" :close-on-click-modal="false">
+      <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
+        <el-form-item label="部门编号：" prop="deptCode">
           <el-input v-model="editForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="部门名称" prop="deptName">
+        <el-form-item label="部门名称：" prop="deptName">
           <el-input v-model="editForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="部门邮箱" prop="deptEmail">
+        <el-form-item label="部门邮箱：" prop="deptEmail">
           <el-input v-model="editForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱密码" prop="deptPassword">
-          <el-input v-model="editForm.deptPassword" auto-complete="off" ></el-input>
+        <el-form-item label="邮箱密码：" prop="deptPassword">
+          <el-input v-model="editForm.deptPassword" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="deptStatus">
+        <el-form-item label="状态：" prop="deptStatus">
           <el-radio-group v-model="editForm.deptStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
@@ -74,21 +74,21 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="部门编号" prop="deptCode">
+    <el-dialog title="新增" center :visible.sync="addFormVisible" :close-on-click-modal="false">
+      <el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
+        <el-form-item label="部门编号：" prop="deptCode">
           <el-input v-model="addForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="部门名称" prop="deptName">
+        <el-form-item label="部门名称：" prop="deptName">
           <el-input v-model="addForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="部门邮箱" prop="deptEmail">
+        <el-form-item label="部门邮箱：" prop="deptEmail">
           <el-input v-model="addForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱密码" prop="deptPassword">
-          <el-input v-model="addForm.deptPassword" auto-complete="off" ></el-input>
+        <el-form-item label="邮箱密码：" prop="deptPassword">
+          <el-input v-model="addForm.deptPassword" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="deptStatus">
+        <el-form-item label="状态：" prop="deptStatus">
           <el-radio-group v-model="addForm.deptStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
@@ -123,7 +123,7 @@
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
         editFormRules: {
-           deptCode: [
+          deptCode: [
             {required: true, message: '请输入部门编号', trigger: 'blur'}
           ],
           deptName: [
@@ -149,7 +149,7 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-           deptCode: [
+          deptCode: [
             {required: true, message: '请输入部门编号', trigger: 'blur'}
           ],
           deptName: [
@@ -164,7 +164,7 @@
         },
         //新增界面数据
         addForm: {
-          deptCode:'',
+          deptCode: '',
           deptName: '',
           deptEmail: '',
           deptPassword: '',
@@ -176,7 +176,7 @@
     methods: {
       //状态显示转换
       formatStatus: function (row, column) {
-        return row.deptStatus == 0 ? '启用' : row.deptStatus == 1 ? '停用' : '未知';
+        return row.deptStatus === 0 ? '启用' : row.deptStatus === 1 ? '停用' : '未知';
       },
       handleCurrentChange(val) {
         this.page = val;
@@ -317,7 +317,7 @@
       },
       //批量删除
       batchRemove: function () {
-        var ids = this.sels.map(item => item.deptId).toString();
+        let ids = this.sels.map(item => item.deptId).toString();
         this.$confirm('确认删除选中记录吗？', '提示', {
           type: 'warning'
         }).then(() => {
