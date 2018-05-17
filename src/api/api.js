@@ -28,10 +28,8 @@ axios.interceptors.response.use(res => {
 });
 
 
-// let base = 'http://10.149.0.114:7081';
-/*10.149.0.173:7081*/
-// axios.defaults.baseURL = 'http://10.149.0.173:7081';
-axios.defaults.baseURL = 'http://10.149.0.114:7081';
+axios.defaults.baseURL = 'http://10.149.0.173:7081';
+// axios.defaults.baseURL = 'http://10.149.0.114:7081';
 // axios.defaults.baseURL = 'http://10.149.0.202:7081';
 // axios.defaults.baseURL = 'http://127.0.0.1:7081';
 // axios.defaults.baseURL = 'http://10.202.203.57:7081';
