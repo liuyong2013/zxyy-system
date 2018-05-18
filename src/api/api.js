@@ -28,11 +28,11 @@ axios.interceptors.response.use(res => {
 });
 
 
-axios.defaults.baseURL = 'http://10.149.0.173:7081';
+// axios.defaults.baseURL = 'http://10.149.0.173:7081';
 // axios.defaults.baseURL = 'http://10.149.0.114:7081';
 // axios.defaults.baseURL = 'http://10.149.0.202:7081';
 // axios.defaults.baseURL = 'http://127.0.0.1:7081';
-// axios.defaults.baseURL = 'http://10.202.203.57:7081';
+axios.defaults.baseURL = 'http://10.202.203.57:7081';
 axios.defaults.timeout = 1000 * 30;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 axios.defaults.headers.get['Content-Type'] = 'application/json';
@@ -78,4 +78,10 @@ export const updateDepartUser = params => {
 export const deleteDepartUser = params => {
   return axios.post('/zxyy/department/delete', qs.stringify(params)).then(res => res.data);
 };
+
+//获取验证码 token
+export const loginVerify = () => {
+  return axios.post('/auth/captcha').then(res => res.data);
+};
+
 
