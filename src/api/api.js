@@ -1,13 +1,12 @@
 import qs from 'qs';
 import axios from 'axios';
 
-
 axios.defaults.validateStatus = status => {
   return status < 500;
 };
 // 设置请求token
 axios.interceptors.request.use(config => {
-  var token = sessionStorage.getItem('token');
+  let token = sessionStorage.getItem('token');
   config.headers['Authorization'] = 'Bearer ' + token;
   console.log(config);
   return config;
@@ -27,12 +26,11 @@ axios.interceptors.response.use(res => {
   return Promise.reject(err)
 });
 
-
+axios.defaults.baseURL = 'http://10.202.203.57:7081';
 // axios.defaults.baseURL = 'http://10.149.0.173:7081';
 // axios.defaults.baseURL = 'http://10.149.0.114:7081';
 // axios.defaults.baseURL = 'http://10.149.0.202:7081';
 // axios.defaults.baseURL = 'http://127.0.0.1:7081';
-axios.defaults.baseURL = 'http://10.202.203.57:7081';
 axios.defaults.timeout = 1000 * 30;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 axios.defaults.headers.get['Content-Type'] = 'application/json';
@@ -83,5 +81,3 @@ export const deleteDepartUser = params => {
 export const loginVerify = () => {
   return axios.post('/auth/captcha').then(res => res.data);
 };
-
-

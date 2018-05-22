@@ -11,7 +11,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="部门名称"></el-input>
+          <el-input v-model.trim="filters.name" placeholder="部门名称"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" v-on:click="getDepartPage">查询</el-button>
@@ -49,19 +49,19 @@
     <el-dialog title="编辑" center :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
         <el-form-item label="部门编号：" prop="deptCode">
-          <el-input v-model="editForm.deptCode" auto-complete="off"></el-input>
+          <el-input v-model.trim="editForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="部门名称：" prop="deptName">
-          <el-input v-model="editForm.deptName" auto-complete="off"></el-input>
+          <el-input v-model.trim="editForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="部门邮箱：" prop="deptEmail">
-          <el-input v-model="editForm.deptEmail" auto-complete="off"></el-input>
+          <el-input type="email" v-model.trim="editForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱密码：" prop="deptPassword">
-          <el-input v-model="editForm.deptPassword" auto-complete="off"></el-input>
+          <el-input v-model.trim="editForm.deptPassword" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="状态：" prop="deptStatus">
-          <el-radio-group v-model="editForm.deptStatus">
+          <el-radio-group v-model.trim="editForm.deptStatus">
             <el-radio class="radio" :label="0">启用</el-radio>
             <el-radio class="radio" :label="1">停用</el-radio>
           </el-radio-group>
@@ -77,16 +77,16 @@
     <el-dialog title="新增" center :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
         <el-form-item label="部门编号：" prop="deptCode">
-          <el-input v-model="addForm.deptCode" auto-complete="off"></el-input>
+          <el-input v-model.trim="addForm.deptCode" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="部门名称：" prop="deptName">
-          <el-input v-model="addForm.deptName" auto-complete="off"></el-input>
+          <el-input v-model.trim="addForm.deptName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="部门邮箱：" prop="deptEmail">
-          <el-input v-model="addForm.deptEmail" auto-complete="off"></el-input>
+          <el-input type="email" v-model.trim="addForm.deptEmail" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱密码：" prop="deptPassword">
-          <el-input v-model="addForm.deptPassword" auto-complete="off"></el-input>
+          <el-input v-model.trim="addForm.deptPassword" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="状态：" prop="deptStatus">
           <el-radio-group v-model="addForm.deptStatus">
@@ -170,7 +170,6 @@
           deptPassword: '',
           deptStatus: -1
         }
-
       }
     },
     methods: {
@@ -193,10 +192,17 @@
         getDepartPage(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
-            this.$message({
-              message: message,
-              type: 'error'
-            });
+            if (status === '' || status === undefined || status === null) {
+              this.$message({
+                type: 'error',
+                message: '系统登录超时！',
+              })
+            } else {
+              this.$message({
+                message: message,
+                type: 'error'
+              });
+            }
           } else {
             this.total = datas.total;
             this.depts = datas.list;
@@ -217,14 +223,20 @@
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
-              this.$message({
-                message: message,
-                type: 'error'
-              });
+              if (status === '' || status === undefined || status === null) {
+                this.$message({
+                  type: 'error',
+                  message: '系统登录超时！',
+                })
+              } else {
+                this.$message({
+                  message: message,
+                  type: 'error'
+                });
+              }
             } else {
               this.getDepartPage();
             }
-
           });
         }).catch(() => {
 
@@ -238,10 +250,17 @@
         getDepartUser(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
-            this.$message({
-              message: message,
-              type: 'error'
-            });
+            if (status === '' || status === undefined || status === null) {
+              this.$message({
+                type: 'error',
+                message: '系统登录超时！',
+              })
+            } else {
+              this.$message({
+                message: message,
+                type: 'error'
+              });
+            }
           } else {
             this.editFormVisible = true;
             this.editForm = Object.assign(datas, row);
@@ -272,10 +291,17 @@
                 this.editLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
-                  this.$message({
-                    message: message,
-                    type: 'error'
-                  });
+                  if (status === '' || status === undefined || status === null) {
+                    this.$message({
+                      type: 'error',
+                      message: '系统登录超时！',
+                    })
+                  } else {
+                    this.$message({
+                      message: message,
+                      type: 'error'
+                    });
+                  }
                 } else {
                   this.$refs['editForm'].resetFields();
                   this.editFormVisible = false;
@@ -298,10 +324,17 @@
                 this.addLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
-                  this.$message({
-                    message: message,
-                    type: 'error'
-                  });
+                  if (status === '' || status === undefined || status === null) {
+                    this.$message({
+                      type: 'error',
+                      message: '系统登录超时！',
+                    })
+                  } else {
+                    this.$message({
+                      message: message,
+                      type: 'error'
+                    });
+                  }
                 } else {
                   this.$refs['addForm'].resetFields();
                   this.addFormVisible = false;
@@ -328,10 +361,17 @@
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
-              this.$message({
-                message: message,
-                type: 'error'
-              });
+              if (status === '' || status === undefined || status === null) {
+                this.$message({
+                  type: 'error',
+                  message: '系统登录超时！',
+                })
+              } else {
+                this.$message({
+                  message: message,
+                  type: 'error'
+                });
+              }
             } else {
               this.getDepartPage();
             }
@@ -345,7 +385,6 @@
       this.getDepartPage();
     }
   }
-
 </script>
 
 <style scoped>

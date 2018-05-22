@@ -11,7 +11,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="老师名字"></el-input>
+          <el-input v-model.trim="filters.name" placeholder="老师名字"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" v-on:click="getFgUserPage">查询</el-button>
@@ -49,7 +49,7 @@
     <el-dialog title="编辑" center :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
         <el-form-item label="用户名：" prop="fgPersonName">
-          <el-input v-model="editForm.fgPersonName" auto-complete="off"></el-input>
+          <el-input v-model.trim="editForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别：" prop="fgPersonSex">
           <el-radio-group v-model="editForm.fgPersonSex">
@@ -58,7 +58,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="电话：" prop="fgPersonPhone">
-          <el-input v-model="editForm.fgPersonPhone" auto-complete="off"></el-input>
+          <el-input v-model.trim="editForm.fgPersonPhone" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="状态：" prop="fgPersonStatus">
           <el-radio-group v-model="editForm.fgPersonStatus">
@@ -77,7 +77,7 @@
     <el-dialog title="新增" center :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
         <el-form-item label="用户名：" prop="fgPersonName">
-          <el-input v-model="addForm.fgPersonName" auto-complete="off"></el-input>
+          <el-input v-model.trim="addForm.fgPersonName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别：" prop="fgPersonSex">
           <el-radio-group v-model="editForm.fgPersonSex">
@@ -87,7 +87,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="电话：" prop="fgPersonPhone">
-          <el-input v-model="addForm.fgPersonPhone" auto-complete="off"></el-input>
+          <el-input v-model.trim="addForm.fgPersonPhone" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="状态：" prop="fgPersonStatus">
@@ -179,10 +179,17 @@
         getFgUserPage(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
-            this.$message({
-              message: message,
-              type: 'error'
-            });
+            if (status === '' || status === undefined || status === null) {
+              this.$message({
+                type: 'error',
+                message: '系统登录超时！',
+              })
+            } else {
+              this.$message({
+                message: message,
+                type: 'error'
+              });
+            }
           } else {
             this.total = datas.total;
             this.users = datas.list;
@@ -203,14 +210,20 @@
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
-              this.$message({
-                message: message,
-                type: 'error'
-              });
+              if (status === '' || status === undefined || status === null) {
+                this.$message({
+                  type: 'error',
+                  message: '系统登录超时！',
+                })
+              } else {
+                this.$message({
+                  message: message,
+                  type: 'error'
+                });
+              }
             } else {
               this.getFgUserPage();
             }
-
           });
         }).catch(() => {
 
@@ -224,10 +237,17 @@
         getFgUser(param).then((res) => {
           let {message, status, datas} = res;
           if (status !== 0) {
-            this.$message({
-              message: message,
-              type: 'error'
-            });
+            if (status === '' || status === undefined || status === null) {
+              this.$message({
+                type: 'error',
+                message: '系统登录超时！',
+              })
+            } else {
+              this.$message({
+                message: message,
+                type: 'error'
+              });
+            }
           } else {
             this.editFormVisible = true;
             this.editForm = Object.assign(datas, row);
@@ -257,10 +277,17 @@
                 this.editLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
-                  this.$message({
-                    message: message,
-                    type: 'error'
-                  });
+                  if (status === '' || status === undefined || status === null) {
+                    this.$message({
+                      type: 'error',
+                      message: '系统登录超时！',
+                    })
+                  } else {
+                    this.$message({
+                      message: message,
+                      type: 'error'
+                    });
+                  }
                 } else {
                   this.$refs['editForm'].resetFields();
                   this.editFormVisible = false;
@@ -283,10 +310,17 @@
                 this.addLoading = false;
                 let {message, status, datas} = res;
                 if (status !== 0) {
-                  this.$message({
-                    message: message,
-                    type: 'error'
-                  });
+                  if (status === '' || status === undefined || status === null) {
+                    this.$message({
+                      type: 'error',
+                      message: '系统登录超时！',
+                    })
+                  } else {
+                    this.$message({
+                      message: message,
+                      type: 'error'
+                    });
+                  }
                 } else {
                   this.$refs['addForm'].resetFields();
                   this.addFormVisible = false;
@@ -313,10 +347,17 @@
             this.listLoading = false;
             let {message, status, datas} = res;
             if (status !== 0) {
-              this.$message({
-                message: message,
-                type: 'error'
-              });
+              if (status === '' || status === undefined || status === null) {
+                this.$message({
+                  type: 'error',
+                  message: '系统登录超时！',
+                })
+              } else {
+                this.$message({
+                  message: message,
+                  type: 'error'
+                });
+              }
             } else {
               this.getFgUserPage();
             }
@@ -330,7 +371,6 @@
       this.getFgUserPage();
     }
   }
-
 </script>
 
 <style scoped>

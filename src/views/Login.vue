@@ -78,14 +78,20 @@
                 let params = new URLSearchParams();
                 requestUser(params).then(data => {
                   this.logining = false;
-
                   //NProgress.done();
                   let {message, status, datas} = data;
                   if (status !== 0) {
-                    this.$message({
-                      message: message,
-                      type: 'error'
-                    });
+                    if (status === '' || status === undefined || status === null) {
+                      this.$message({
+                        type: 'error',
+                        message: '系统登录超时！',
+                      })
+                    } else {
+                      this.$message({
+                        message: message,
+                        type: 'error'
+                      });
+                    }
                   } else {
                     sessionStorage.setItem('user', JSON.stringify(datas));
                     this.$router.push({path: '/system/dept'});
@@ -129,6 +135,11 @@
             let {captcha, catoken} = datas;
             this.verifyCode = captcha;
             sessionStorage.setItem('catoken', catoken);
+          } else if (status === '' || status === undefined || status === null) {
+            this.$message({
+              type: 'error',
+              message: '系统登录超时！',
+            })
           } else {
             this.$message({
               type: 'error',
